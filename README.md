@@ -105,7 +105,7 @@ ElevenPi is a cutting-edge, all-in-one WiFi penetration testing platform designe
 git clone https://github.com/agente3z/ElevenPi.git
 cd ElevenPi
 
-# Run the automated installation (requires sudo)
+# Run the automated installation (requires sudo) on a raspberry
 sudo ./install.sh
 ```
 
@@ -113,13 +113,7 @@ sudo ./install.sh
 - Plug in your compatible USB WiFi adapter
 - The system will automatically detect and configure it
 
-### **3. Access the Web Interface**
-```
-Open your browser and navigate to:
-http://your-pi-ip:5000
-```
-
-### **4. Start Penetration Testing**
+### **3. Start Penetration Testing**
 1. **Stop interfering services** via the dashboard
 2. **Set your WiFi interface to monitor mode**
 3. **Scan for target access points**
