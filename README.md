@@ -14,6 +14,25 @@
 
 ---
 
+## 📖 **Table of Contents**
+
+- [🚀 What is ElevenPi?](#-what-is-elevenpi)
+- [✨ Core Features](#-core-features)
+  - [🔍 Advanced Access Point Discovery](#-advanced-access-point-discovery)
+  - [⚡ Deauthentication Attacks](#-deauthentication-attacks)
+  - [🎣 WPA/WPA2 Handshake Capture](#-wpawpa2-handshake-capture)
+  - [🕸️ Evil Twin & Captive Portal](#️-evil-twin--captive-portal)
+  - [💻 Intuitive Web Dashboard](#-intuitive-web-dashboard)
+- [🛠️ Technical Specifications](#️-technical-specifications)
+- [🚀 Quick Start Guide](#-quick-start-guide)
+- [📖 Detailed Usage Guide](#-detailed-usage-guide)
+- [🔧 Advanced Configuration](#-advanced-configuration)
+- [📊 Performance & Monitoring](#-performance--monitoring)
+- [🔒 Security & Legal Notice](#-security--legal-notice)
+- [📄 License & Credits](#-license--credits)
+
+---
+
 ## 🚀 **What is ElevenPi?**
 
 ElevenPi is a cutting-edge, all-in-one WiFi penetration testing platform designed specifically for Raspberry Pi devices. Built with Python and featuring a modern web interface, it combines the power of industry-standard tools like **aircrack-ng** with an intuitive user experience that makes wireless security testing accessible to both professionals and enthusiasts.
