@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dot11Pi</title>
+    <link rel="stylesheet" href="/static/frontend.css">
+    <link rel="stylesheet" href="/static/all.min.css">
+    <script src="/static/socket.io.js"></script>
+    <script src="/static/frontend.js"></script>
+</head>
+<body>
+    <div id="sidebar">
+        <div class="menu-item" data-section="interfaces" onclick="showSection('interfaces')">Interfaces Management</div>
+        <div class="menu-item" data-section="ap-scan" onclick="showSection('ap-scan')">AP Scanning</div>
+        <div class="menu-item" data-section="sniffing" onclick="showSection('sniffing')">Handshake Sniffing</div>
+        <div class="menu-item" data-section="clients" onclick="showSection('clients')">Client Management</div>
+        <div class="menu-item" data-section="portal" onclick="showSection('portal')">Captive Portal</div>
+    </div>
+
+    <div id="main-content">
+        <!-- Interfaces Management Section -->
+        <div id="interfaces" class="section active">
+            <h2>Interfaces Management</h2>
+            <button onclick="updateInterfaces()">Refresh Interfaces</button>
+            <div id="interfaces-list"></div>
+            <div id="services-control">
+                <button id="start-services" onclick="manageServices('start')" disabled>Start Services</button>
+                <button id="stop-services" onclick="manageServices('stop')">Stop Services</button>
+            </div>
+        </div>
+
+        <!-- AP Scanning Section -->
+        <div id="ap-scan" class="section">
+            <h2>AP Scanning</h2>
+            <button id="start-ap-scan-btn" onclick="startAPScan()">Start Scanning</button>
+            <button id="stop-ap-scan-btn" onclick="stopAPScan()" disabled>Stop Scanning</button>
+            <div id="ap-list-container">
+                <div id="ap-list"></div>
+            </div>
+        </div>
+
+        <!-- Sniffing Section -->
+        <div id="sniffing" class="section">
+            <h2>Handshake Sniffing</h2>
+            <div>
+                <button id="start-sniff-btn" onclick="startSniffing()">Start Sniffing</button>
+                <button id="stop-sniff-btn" onclick="stopSniffing()" disabled>Stop Sniffing</button>
+            </div>
+            <div>
+                <button id="start-sharing-btn" onclick="startSharing()">Start Sharing</button>
+                <button id="stop-sharing-btn" onclick="stopSharing()" disabled>Stop Sharing</button>
+            </div>
+            <div id="sniffing-status"></div>
+        </div>
+
+        <!-- Client Management Section -->
+        <div id="clients" class="section">
+            <h2>Client Management</h2>
+            <button id="start-client-scan-btn" onclick="startClientScan()">Scan Clients</button>
+            <button id="stop-client-scan-btn" onclick="stopClientScan()" disabled>Stop Scanning</button>
+            <div id="client-list">
+                <div class="client-item" data-client="ff:ff:ff:ff:ff:ff" onclick="selectClient('ff:ff:ff:ff:ff:ff')">Broadcast</div>
+            </div>
+            <div id="deauth-control">
+                <button onclick="startDeauth()">Deauth Selected</button>
+            </div>
+        </div>
+
+        <!-- Captive Portal Section -->
+        <div id="portal" class="section">
+            <h2>Captive Portal</h2>
+            <button id="start-portal-btn" onclick="startPortal()">Start Portal</button>
+            <button id="stop-portal-btn" onclick="stopPortal()" disabled>Stop Portal</button>
+            <textarea id="portal-logs" class="log-container" readonly></textarea>
+        </div>
+    </div>
+
+    <button id="shutdown-btn" onclick="showConfirmationPopup()">
+        <i class="fa-solid fa-power-off"></i>
+    </button>
+    <button id="logs-btn" onclick="showLogsPopup()">
+        <i class="fa-solid fa-file-alt"></i>
+    </button>
+    <button id="logins-btn" onclick="showLoginsPopup()">
+        <i class="fa-solid fa-user"></i>
+    </button>
+    <div id="overlay"></div>
+    <div id="confirmation-popup">
+        <div class="popup-header">
+            <i class="fa-solid fa-times close-btn" onclick="hideConfirmationPopup()"></i>
+        </div>
+        <h3 style="margin-bottom: 25px;">Shutdown manager</h3>
+        <button id="confirm-shutdown-btn" onclick="confirmAction('shutdown')">Shutdown</button>
+        <button id="confirm-reboot-btn" onclick="confirmAction('reboot')">Reboot</button>
+    </div>
+    <div id="logs-popup">
+        <div class="popup-header">
+            <i class="fa-solid fa-times close-btn" onclick="hideLogsPopup()"></i>
+        </div>
+        <h3 style="margin-bottom: 25px;">Logs</h3>
+        <textarea id="logs-container" class="log-container" readonly></textarea>
+    </div>
+    <div id="logins-popup">
+        <div class="popup-header">
+            <i class="fa-solid fa-times close-btn" onclick="hideLoginsPopup()"></i>
+        </div>
+        <h3 style="margin-bottom: 25px;">Logins</h3>
+        <div id="logins-list-container">
+            <div id="logins-list"></div>
+        </div>
+    </div>
+</body>
+</html>

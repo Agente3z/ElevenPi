@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ portal_name }}</title>
+    <link rel="stylesheet" href="/static/all.min.css">
+    <style>
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #615e5b, #6594a0);
+            overflow: hidden;
+            /* Prevents body from expanding */
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            /* Adjusted width to prevent overflow */
+            max-width: 400px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .login-container:hover {
+            transform: scale(1.02);
+        }
+
+        .branding img {
+            max-width: 75px;
+            /* Adjusted size to make the logo smaller */
+            margin-bottom: 1rem;
+        }
+
+        .ssid {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 1rem;
+            /* Added margin-bottom to input container */
+        }
+
+        .input-container i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ccc;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .input-container .fa-lock {
+            left: -10px;
+            /* Adjusted position to be inside the input box */
+            top: 32%;
+            /* Adjusted position to be centered */
+            transition: left 0.3s;
+        }
+
+        .input-container .fa-eye {
+            right: 10px;
+            /* Adjusted position to be inside the input box */
+            top: 30%;
+            /* Adjusted position to be centered */
+            cursor: pointer;
+        }
+
+        .login-form input[type="password"],
+        .login-form input[type="text"] {
+            width: calc(100% - 4rem);
+            /* Adjust width to account for padding */
+            padding: 0.5rem 2rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            background: none;
+            transition: border-bottom 0.3s, border-color 0.3s, border-width 0.3s, padding 0.3s, font-size 0.3s, width 0.3s;
+        }
+
+        .login-form input[type="password"]:focus,
+        .login-form input[type="text"]:focus {
+            border-bottom: 2px solid #007BFF;
+            outline: none;
+            padding-left: 0.5rem;
+            padding-right: 0;
+            font-size: 1.1rem;
+            /* Increase font size */
+            width: 100%;
+            /* Ensure width expands */
+            transition: border-bottom 0.3s, border-color 0.3s, border-width 0.3s, padding 0.3s, font-size 0.3s, width 0.3s;
+        }
+
+        .login-form input[type="password"]:focus::placeholder,
+        .login-form input[type="text"]:focus::placeholder {
+            color: transparent;
+            /* Hide placeholder text */
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .login-form button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #d9534f;
+            /* Ensure proper color contrast */
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .login-container {
+                padding: 2rem;
+                margin: 0 1rem;
+                height: auto;
+            }
+
+            .login-form input[type="password"],
+            .login-form input[type="text"],
+            .login-form button {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container fade-in">
+        <div class="branding">
+            <img src="static/wifi.png" alt="Brand Logo"> <!-- Ensure this path is correct -->
+        </div>
+        <div class="ssid">{{ portal_name }}</div>
+        <form class="login-form" aria-label="Login Form" method="POST" action="/login">
+            <div class="input-container">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required aria-required="true">
+                <i class="fas fa-eye" id="togglePassword"></i>
+            </div>
+            <button type="submit">Login</button>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="error-message" id="error-message" role="alert">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </form>
+    </div>
+    <script>
+        document.getElementById('togglePassword').addEventListener('mousedown', function (event) {
+            event.preventDefault(); // Prevent input from losing focus
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Add event listeners to handle focus and blur events
+        const passwordInput = document.getElementById('password');
+        const lockIcon = document.querySelector('.fa-lock');
+
+        passwordInput.addEventListener('focus', function () {
+            lockIcon.style.left = '-20px';
+        });
+
+        passwordInput.addEventListener('blur', function () {
+            lockIcon.style.left = '-10px';
+        });
+    </script>
+</body>
+
+</html>
