@@ -133,9 +133,16 @@ Normal tool:
 ```
 # Create the venv
 python3 -m .venv
-source .venv/bin/activvate
+source .venv/bin/activate
+
 # Install the dependencies
 pip3 install -r requirements.txt
+sudo apt update
+sudo apt-get install -y hostapd dnsmasq aircrack-ng
+
+# Disable services
+systemctl disable dnsmasq
+systemctl disable hostapd
 
 # Start the webinterface
 python3 src/webgui.py
