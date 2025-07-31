@@ -123,10 +123,24 @@ ElevenPi is a cutting-edge, all-in-one WiFi penetration testing platform designe
 # Clone the repository
 git clone https://github.com/agente3z/ElevenPi.git
 cd ElevenPi
-
-# Run the automated installation (requires sudo) on a raspberry
+```
+Raspberry Pi:
+```
+# Run the automated installation
 sudo ./install.sh
 ```
+Normal tool:
+```
+# Create the venv
+python3 -m .venv
+source .venv/bin/activvate
+# Install the dependencies
+pip3 install -r requirements.txt
+
+# Start the webinterface
+python3 src/webgui.py
+```
+
 
 ### **2. Connect Your WiFi Adapter**
 - Plug in your compatible USB WiFi adapter
