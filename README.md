@@ -124,12 +124,15 @@ ElevenPi is a cutting-edge, all-in-one WiFi penetration testing platform designe
 git clone https://github.com/agente3z/ElevenPi.git
 cd ElevenPi
 ```
+
 Raspberry Pi:
+This will install a system service, will reboot the system and autostart a chromium WebGUI with hidden cursor.
+Use this ONLY if you want to install this on a raspberry with touchscreen.
 ```
 # Run the automated installation
 sudo ./install.sh
 ```
-Normal tool:
+Standalone tool:
 ```
 # Create the venv
 python3 -m .venv
